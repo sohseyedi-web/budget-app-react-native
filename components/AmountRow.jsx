@@ -30,7 +30,7 @@ const AmonutRow = () => {
 
     return (
         <View style={styles.amount}>
-            <Text style={{ fontSize: hp(5.5), color: "#fff" }}>{numberWithCommas(balance)} $</Text>
+            <Text style={{ fontSize: hp(5.5), color: "#fff" }}>{numberWithCommas(balance)} {balance == 0 ? null : "$"}</Text>
             <Pressable style={styles.adding} onPress={openModal}>
                 <Text style={styles.text}>Add Inventory</Text>
             </Pressable>
