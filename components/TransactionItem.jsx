@@ -5,31 +5,35 @@ import { hp, wp } from '../utils/common'
 import { useBudget } from '../context/BudgetProvider'
 import { numberWithCommas } from '../utils/toPersianNumber'
 import { convertDate } from '../utils/convertDate'
+import Empty from './Empty'
 
 const TransactionItem = () => {
 
     const { transaction } = useBudget()
 
     return (
-        <FlatList
-            data={transaction}
-            keyExtractor={(item) => item.id}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ gap: 8 }}
-            ListEmptyComponent={<Text>nothing</Text>}
-            renderItem={({ item }) => (
-                <View style={styles.list}>
-                    <IconBox icon={<ArrowsRightLeftIcon size={24} color="#fff" />} type={item.data.selectedOption} />
-                    <View style={styles.row}>
-                        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                            <Text style={{ fontSize: hp(2.2), color: "#fff", fontWeight: "semibold" }}>{item.data.title}</Text>
-                            <Text style={{ color: "#fff" }}>{numberWithCommas(item.data.amount)} $</Text>
+        <View style={{ rowGap: 5 }}>
+            <FlatList
+                ListHeaderComponent={transaction.length > 0 && <Text style={{ fontSize: hp(2.5), color: "#fff" }}>Transactions</Text>}
+                data={transaction}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ gap: 8 }}
+                ListEmptyComponent={<Empty />}
+                renderItem={({ item }) => (
+                    <View style={styles.list}>
+                        <IconBox icon={<ArrowsRightLeftIcon size={24} color="#fff" />} type={item.data.selectedOption} />
+                        <View style={styles.row}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                <Text style={{ fontSize: hp(2.2), color: "#fff", fontWeight: "semibold" }}>{item.data.title}</Text>
+                                <Text style={{ color: "#fff" }}>{numberWithCommas(item.data.amount)} $</Text>
+                            </View>
+                            <Text style={{ opacity: .5, color: "#fff", fontSize: hp(1.6) }}>{convertDate(item.createdAt)}</Text>
                         </View>
-                        <Text style={{ opacity: .5, color: "#fff", fontSize: hp(1.6) }}>{convertDate(item.createdAt)}</Text>
                     </View>
-                </View>
-            )}
-        />
+                )}
+            />
+        </View>
     )
 }
 
