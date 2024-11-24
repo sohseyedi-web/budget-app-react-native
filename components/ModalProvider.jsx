@@ -6,7 +6,7 @@ const ModalProvider = ({ onClose, title, children, isModalVisible }) => {
     return (
         <Modal
             transparent={true}
-            visiblea={isModalVisible}
+            visible={isModalVisible}
             animationType="fade"
             onRequestClose={onClose}
         >
