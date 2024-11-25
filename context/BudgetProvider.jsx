@@ -12,7 +12,7 @@ export const BudgetProvider = ({ children }) => {
 
 
     const handleTransactions = (item) => {
-            if (item.data.selectedOption === "income") {
+            if (item.data.selectedOption === "income" || item.data.selectedOption === "deposit") {
                 setBalance((prev) => prev + Number(item.data.amount));
                 setTransaction((prev) => [...prev, item]);
             } else {
