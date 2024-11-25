@@ -1,23 +1,25 @@
-import { StyleSheet, View } from 'react-native'
-import { hp } from '../utils/common'
+import React, { useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { hp } from '../utils/common';
 import { ArrowDownTrayIcon, ArrowUpTrayIcon, CircleStackIcon } from 'react-native-heroicons/outline';
 
-const IconBox = ({ type }) => {
+const ICONS = {
+    income: { icon: <ArrowDownTrayIcon size={24} color="#fff" />, color: "#4335A7" },
+    expense: { icon: <ArrowUpTrayIcon size={24} color="#fff" />, color: "#D91656" },
+    default: { icon: <CircleStackIcon size={24} color="#fff" />, color: "#141414" },
+};
 
-    const isType = type === "income" ? "#4335A7" : type === "expense" ? "#D91656" : "#141414";
-    const icon =
-        type === "income" ? <ArrowDownTrayIcon size={24} color={"#fff"} /> :
-            type === "expense" ? <ArrowUpTrayIcon size={24} color={"#fff"} /> :
-                <CircleStackIcon size={24} color={"#fff"} />;
+const IconBox = ({ type }) => {
+    const { icon, color } = useMemo(() => ICONS[type] || ICONS.default, [type]);
 
     return (
-        <View style={[styles.box, { backgroundColor: isType }]}>
+        <View style={[styles.box, { backgroundColor: color }]}>
             {icon}
         </View>
-    )
-}
+    );
+};
 
-export default IconBox
+export default IconBox;
 
 const styles = StyleSheet.create({
     box: {
@@ -27,4 +29,4 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     }
-})
+});
