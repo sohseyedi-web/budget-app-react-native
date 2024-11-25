@@ -23,7 +23,7 @@ const TransactionItem = () => {
                 data={sortTransactions}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ gap: 8 }}
+                contentContainerStyle={{ gap: 8, paddingBottom:wp(4) }}
                 ListEmptyComponent={<Empty />}
                 renderItem={({ item }) => (
                     <Animated.View
